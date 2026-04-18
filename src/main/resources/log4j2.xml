@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Properties>
+        <Property name="LOG_DIR">logs</Property>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n</Property>
+    </Properties>
+
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <File name="ErrorsFile" fileName="${LOG_DIR}/errors.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Filters>
+                <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL" />
+            </Filters>
+        </File>
+    </appenders>
+
+    <loggers>
+        <Root level="debug">
+            <appender-ref ref="ErrorsFile" level="error"/>
+            <appender-ref ref="Console" level="error"/>
+        </Root>
+    </loggers>
+</Configuration>
